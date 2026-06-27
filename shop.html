@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop Mystery Card Scoops | Poke Pulls</title>
+    <meta name="description" content="Shop Poke Pulls mystery card scoops by rarity tier. Each bead equals one card, with clear guarantees and no specific card promised.">
+    <link rel="canonical" href="https://pokepulls.vercel.app/shop">
+    <meta property="og:title" content="Shop Mystery Card Scoops | Poke Pulls">
+    <meta property="og:description" content="Common, Rare, Premium, and Party Pack mystery card scoops for collectors and party favors.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pokepulls.vercel.app/shop">
+    <meta property="og:image" content="https://pokepulls.vercel.app/assets/card-scoop-hero-kids.png">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Common Scoop", "description": "30-card mystery scoop with common rarity guarantee.", "offers": {"@type": "Offer", "price": "8", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
+          {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Rare Scoop", "description": "18-card mystery scoop with rare-tier cards.", "offers": {"@type": "Offer", "price": "16", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
+          {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Premium Scoop", "description": "20-card mystery scoop with a guaranteed sleeved holo or reverse-holo style card.", "offers": {"@type": "Offer", "price": "24", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
+          {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Bundle / Party Pack", "description": "50-card mystery scoop for parties and group pulls.", "offers": {"@type": "Offer", "price": "45", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}}
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div class="announcement">Each bead equals one card. No specific card is guaranteed.</div>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Poke Pulls home"><span class="brand-mark">PP</span><span>Poke Pulls</span></a>
+      <nav aria-label="Primary">
+        <a href="shop.html" aria-current="page">Shop</a>
+        <a href="try-it.html">Try it</a>
+        <a href="how-poke-pulls-work.html">How it works</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <a class="cart-button nav-link-button" href="shop.html">Shop</a>
+    </header>
+    <main>
+      <section class="content-hero">
+        <p class="eyebrow">Shop mystery scoops</p>
+        <h1>Choose a rarity tier</h1>
+        <p>Customers choose the tier. The bead pull chooses the card elements. Poke Pulls does not guarantee specific cards, characters, sets, artwork, or card values.</p>
+      </section>
+      <section class="section" id="products" aria-labelledby="products-title">
+        <div class="section-heading">
+          <p class="eyebrow">Products</p>
+          <h2 id="products-title">Commerce-ready scoop options</h2>
+        </div>
+        <div class="setup-notice" data-checkout-setup hidden></div>
+        <div class="filters" aria-label="Product filters">
+          <button class="filter is-active" type="button" data-filter="all">All</button>
+          <button class="filter" type="button" data-filter="starter">Common</button>
+          <button class="filter" type="button" data-filter="rare">Rare</button>
+          <button class="filter" type="button" data-filter="premium">Premium</button>
+        </div>
+        <div class="product-grid" data-products></div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Poke Pulls is an independent collector shop and is not affiliated with, endorsed by, or sponsored by The Pokémon Company, Nintendo, Game Freak, or Creatures Inc.</p>
+      <nav aria-label="Footer">
+        <a href="contact.html">Contact</a>
+        <a href="shipping.html">Shipping</a>
+        <a href="returns.html">Returns</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </nav>
+    </footer>
+    <script src="commerce-config.js"></script>
+    <script src="products.js"></script>
+    <script src="script.js?v=4"></script>
+  </body>
+</html>

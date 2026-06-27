@@ -1,0 +1,62 @@
+window.POKE_PULLS_PRODUCTS = [
+  {
+    id: "common",
+    name: "Common Scoop",
+    type: "starter",
+    price: 8,
+    cards: 30,
+    rarityGuarantee: "30 common cards, one card per bead pulled.",
+    condition: "Near mint to lightly played. No damaged cards packed.",
+    shipping: "Ships in a team bag with basic card protection.",
+    noGuarantee: "No specific card, character, set, artwork, or market value is guaranteed.",
+    accent: "#3d9a52",
+    bg: "#e4f6e9",
+    icons: ["C", "?", "+"],
+    description: "A starter mystery scoop for binder builders and younger collectors."
+  },
+  {
+    id: "rare",
+    name: "Rare Scoop",
+    type: "rare",
+    price: 16,
+    cards: 18,
+    rarityGuarantee: "Includes rare-tier cards plus element-matched bulk from the bead pull.",
+    condition: "Near mint to lightly played. No creased, torn, or water-damaged cards.",
+    shipping: "Rare cards ship sleeved inside the team bag.",
+    noGuarantee: "No specific rare, holo, character, set, artwork, or market value is guaranteed.",
+    accent: "#7665c9",
+    bg: "#eeeafd",
+    icons: ["R", "*", "?"],
+    description: "A smaller scoop with stronger rarity upside and clear expectations."
+  },
+  {
+    id: "premium",
+    name: "Premium Scoop",
+    type: "premium",
+    price: 24,
+    cards: 20,
+    rarityGuarantee: "Guaranteed sleeved holo, reverse holo, or shiny-style card.",
+    condition: "Near mint to lightly played. Premium hits are inspected before packing.",
+    shipping: "Ships with sleeved hit cards and protective team-bag packaging.",
+    noGuarantee: "No specific holo, character, set, artwork, or market value is guaranteed.",
+    accent: "#d94b82",
+    bg: "#ffe5ef",
+    icons: ["H", "*", "+"],
+    description: "A gift-friendly scoop with a guaranteed sleeved shine in every order."
+  },
+  {
+    id: "party",
+    name: "Bundle / Party Pack",
+    type: "premium",
+    price: 45,
+    cards: 50,
+    rarityGuarantee: "50 bead-matched cards with mixed rarities and bonus extras.",
+    condition: "Near mint to lightly played. No damaged cards included.",
+    shipping: "Ships sorted into smaller team bags for party favors or group pulls.",
+    noGuarantee: "No specific card, character, set, artwork, or market value is guaranteed.",
+    accent: "#e85043",
+    bg: "#ffe8df",
+    icons: ["P", "*", "+"],
+    description: "A larger scoop for birthdays, siblings, party favors, or group reveals."
+  }
+];

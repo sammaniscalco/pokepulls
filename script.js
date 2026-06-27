@@ -1,109 +1,95 @@
-const products = [
-  {
-    name: "Common Mystery Scoop",
-    type: "starter",
-    price: 8,
-    count: "30 beads / 30 cards",
-    accent: "#3d9a52",
-    bg: "#e4f6e9",
-    icons: ["C", "?", "+"],
-    description: "A budget scoop of commons. Bead colors randomly decide the element mix."
-  },
-  {
-    name: "Common + Uncommon Scoop",
-    type: "starter",
-    price: 12,
-    count: "25 beads / 25 cards",
-    accent: "#2777c6",
-    bg: "#e5f4ff",
-    icons: ["C", "U", "?"],
-    description: "A balanced binder-builder scoop with commons, uncommons, and mystery elements."
-  },
-  {
-    name: "Rare Mystery Scoop",
-    type: "rare",
-    price: 14,
-    count: "18 beads / 18 cards",
-    accent: "#7665c9",
-    bg: "#eeeafd",
-    icons: ["R", "*", "?"],
-    description: "Smaller count, stronger tier: includes rare cards plus bead-selected elements."
-  },
-  {
-    name: "Reverse Holo Chance Scoop",
-    type: "rare",
-    price: 18,
-    count: "16 beads / 16 cards",
-    accent: "#1f9e9a",
-    bg: "#e3faf8",
-    icons: ["H", "R", "?"],
-    description: "A rare-tier mystery scoop with at least one sleeved reverse-holo or holo card."
-  },
-  {
-    name: "Mini Mystery Scoop",
-    type: "starter",
-    price: 5,
-    count: "15 beads / 15 cards",
-    accent: "#f3bd3e",
-    bg: "#fff4c8",
-    icons: ["?", "C", "+"],
-    description: "A quick add-on scoop for younger buyers who want a low-cost surprise."
-  },
-  {
-    name: "Holo Hit Scoop",
-    type: "premium",
-    price: 24,
-    count: "20 beads / 20 cards",
-    accent: "#d94b82",
-    bg: "#ffe5ef",
-    icons: ["H", "*", "+"],
-    description: "Premium mystery scoop with a guaranteed sleeved holo, reverse-holo, or shiny-style card."
-  },
-  {
-    name: "Trainer Bonus Scoop",
-    type: "starter",
-    price: 7,
-    count: "30 beads / 30 cards",
-    accent: "#333333",
-    bg: "#ededed",
-    icons: ["T", "I", "+"],
-    description: "Trainer, item, and support cards added around the bead-revealed element mix."
-  },
-  {
-    name: "Collector Jackpot Scoop",
-    type: "premium",
-    price: 32,
-    count: "50 beads / 50 cards",
-    accent: "#e85043",
-    bg: "#ffe8df",
-    icons: ["P", "*", "+"],
-    description: "The big gift scoop: mixed rarities, bead-randomized elements, sleeves, and bonus extras."
-  }
-];
-
-const cart = [];
+const products = window.POKE_PULLS_PRODUCTS || [];
+const config = window.POKE_PULLS_CONFIG || {};
 const productGrid = document.querySelector("[data-products]");
 const filters = document.querySelectorAll("[data-filter]");
-const cartEl = document.querySelector("[data-cart]");
-const cartItems = document.querySelector("[data-cart-items]");
-const cartCount = document.querySelector("[data-cart-count]");
-const cartTotal = document.querySelector("[data-cart-total]");
+const setupNotice = document.querySelector("[data-checkout-setup]");
+const signupForm = document.querySelector("[data-signup-form]");
 
 function money(value) {
   return `$${value}`;
 }
 
+function isShopifyConfigured() {
+  const shopify = config.shopify || {};
+  const productIds = shopify.products || {};
+  return Boolean(
+    shopify.enabled &&
+      shopify.domain &&
+      shopify.storefrontAccessToken &&
+      products.every((product) => productIds[product.id])
+  );
+}
+
+function trackEvent(name, detail = {}) {
+  const payload = { name, detail, ts: new Date().toISOString() };
+
+  if (config.analyticsProvider === "gtag" && typeof window.gtag === "function") {
+    window.gtag("event", name, detail);
+    return;
+  }
+
+  if (config.analyticsProvider === "plausible" && typeof window.plausible === "function") {
+    window.plausible(name, { props: detail });
+    return;
+  }
+
+  if (config.analyticsEndpoint) {
+    navigator.sendBeacon?.(config.analyticsEndpoint, JSON.stringify(payload));
+  }
+}
+
+function renderSetupNotice() {
+  if (!setupNotice) return;
+
+  if (isShopifyConfigured()) {
+    setupNotice.hidden = true;
+    return;
+  }
+
+  setupNotice.hidden = false;
+  setupNotice.innerHTML = `
+    <strong>Checkout setup needed:</strong>
+    Add Shopify Buy Button values in <code>commerce-config.js</code> to show real checkout buttons.
+    Payment details are never collected on this site.
+  `;
+}
+
+function checkoutUrl(product, quantity = 1) {
+  const shopify = config.shopify || {};
+  const shop = String(shopify.domain || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const productId = shopify.products?.[product.id];
+
+  if (!isShopifyConfigured() || !shop || !productId) return "";
+
+  return `https://${shop}/cart/${productId}:${quantity}`;
+}
+
 function renderProducts(filter = "all") {
+  if (!productGrid) return;
+
+  const checkoutReady = isShopifyConfigured();
   const visibleProducts = filter === "all" ? products : products.filter((product) => product.type === filter);
 
   productGrid.innerHTML = visibleProducts
-    .map((product, index) => {
-      const tokens = product.icons
-        .map((icon) => `<span class="token">${icon}</span>`)
-        .join("");
+    .map((product) => {
+      const tokens = product.icons.map((icon) => `<span class="token">${icon}</span>`).join("");
+      const action = checkoutReady
+        ? `
+          <label class="quantity-control">
+            Qty
+            <select data-quantity-for="${product.id}">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+          <a class="add-button" href="${checkoutUrl(product)}" data-checkout-product="${product.id}">Checkout</a>
+        `
+        : `<span class="setup-chip">Checkout unavailable until Shopify is configured.</span>`;
 
       return `
-        <article class="product-card" style="--accent: ${product.accent}; --art-bg: ${product.bg}">
+        <article class="product-card" id="${product.id}-scoop" style="--accent: ${product.accent}; --art-bg: ${product.bg}" data-product-card="${product.id}">
           <div class="product-art" aria-hidden="true">
             <div class="token-stack">
               ${tokens}
@@ -113,52 +99,25 @@ function renderProducts(filter = "all") {
           <div class="product-body">
             <h3>${product.name}</h3>
             <p>${product.description}</p>
+            <dl class="product-facts">
+              <div><dt>Price</dt><dd>${money(product.price)}</dd></div>
+              <div><dt>Cards</dt><dd>${product.cards} beads / ${product.cards} cards</dd></div>
+              <div><dt>Guarantee</dt><dd>${product.rarityGuarantee}</dd></div>
+              <div><dt>Condition</dt><dd>${product.condition}</dd></div>
+              <div><dt>Shipping</dt><dd>${product.shipping}</dd></div>
+            </dl>
+            <p class="fine-print">${product.noGuarantee}</p>
             <div class="product-meta">
-              <div>
-                <span class="price">${money(product.price)}</span>
-                <p>${product.count}</p>
-              </div>
-              <button class="add-button" type="button" data-add="${products.indexOf(product)}">Add</button>
+              <span class="price">${money(product.price)}</span>
+              ${action}
             </div>
           </div>
         </article>
       `;
     })
     .join("");
-}
 
-function renderCart() {
-  cartCount.textContent = cart.length;
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  cartTotal.textContent = money(total);
-
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<p>Your cart is ready for a scoop.</p>";
-    return;
-  }
-
-  cartItems.innerHTML = cart
-    .map(
-      (item, index) => `
-        <div class="cart-line">
-          <div>
-            <strong>${item.name}</strong>
-            <span>${item.count}</span>
-          </div>
-          <span>${money(item.price)}</span>
-          <button class="add-button" type="button" data-remove="${index}">Remove</button>
-        </div>
-      `
-    )
-    .join("");
-}
-
-function openCart() {
-  cartEl.setAttribute("aria-hidden", "false");
-}
-
-function closeCart() {
-  cartEl.setAttribute("aria-hidden", "true");
+  visibleProducts.forEach((product) => trackEvent("product_viewed", { productId: product.id, name: product.name }));
 }
 
 filters.forEach((button) => {
@@ -169,32 +128,60 @@ filters.forEach((button) => {
   });
 });
 
-productGrid.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-add]");
-  if (!button) return;
-
-  cart.push(products[Number(button.dataset.add)]);
-  renderCart();
-  openCart();
+productGrid?.addEventListener("click", (event) => {
+  const checkout = event.target.closest("[data-checkout-product]");
+  if (!checkout) return;
+  trackEvent("checkout_clicked", { productId: checkout.dataset.checkoutProduct });
 });
 
-document.querySelector("[data-cart-open]").addEventListener("click", openCart);
-document.querySelector("[data-cart-close]").addEventListener("click", closeCart);
+productGrid?.addEventListener("change", (event) => {
+  const quantity = event.target.closest("[data-quantity-for]");
+  if (!quantity) return;
 
-cartEl.addEventListener("click", (event) => {
-  if (event.target === cartEl) closeCart();
+  const product = products.find((item) => item.id === quantity.dataset.quantityFor);
+  const card = quantity.closest("[data-product-card]");
+  const checkout = card?.querySelector("[data-checkout-product]");
+  if (!product || !checkout) return;
 
-  const removeButton = event.target.closest("[data-remove]");
-  if (!removeButton) return;
-
-  cart.splice(Number(removeButton.dataset.remove), 1);
-  renderCart();
+  checkout.href = checkoutUrl(product, quantity.value);
 });
 
-document.querySelector(".signup form").addEventListener("submit", (event) => {
+document.querySelectorAll("details").forEach((detail) => {
+  detail.addEventListener("toggle", () => {
+    if (detail.open) {
+      trackEvent("faq_opened", { question: detail.querySelector("summary")?.textContent || "" });
+    }
+  });
+});
+
+signupForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
-  event.currentTarget.reset();
+  const status = signupForm.querySelector("[data-signup-status]");
+  const formData = new FormData(signupForm);
+  const email = formData.get("email");
+
+  trackEvent("email_signup", { configured: Boolean(config.emailSignupEndpoint) });
+
+  if (!config.emailSignupEndpoint) {
+    status.textContent = "Email signup is not connected yet. Add a Formspree, Resend, Mailchimp, or Shopify endpoint in commerce-config.js.";
+    return;
+  }
+
+  try {
+    const response = await fetch(config.emailSignupEndpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData
+    });
+
+    if (!response.ok) throw new Error("Signup failed");
+
+    signupForm.reset();
+    status.textContent = `Thanks. ${email} has been added to the drop list.`;
+  } catch {
+    status.textContent = "Signup could not be completed. Please try again later.";
+  }
 });
 
+renderSetupNotice();
 renderProducts();
-renderCart();

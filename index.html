@@ -6,10 +6,40 @@
     <title>Poke Pulls</title>
     <meta
       name="description"
-      content="A kid-run Pokemon card mystery scoop concept where bead colors reveal the card element."
+      content="Shop Poke Pulls mystery card scoops. Each bead equals one card, with clear rarity guarantees, parent-packed orders, and no specific card guaranteed."
     >
+    <link rel="canonical" href="https://pokepulls.vercel.app/">
+    <meta property="og:title" content="Poke Pulls Mystery Card Scoops">
+    <meta property="og:description" content="Mystery bead scoops for young collectors. Choose a rarity tier, then each bead reveals one card element.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pokepulls.vercel.app/">
+    <meta property="og:image" content="https://pokepulls.vercel.app/assets/card-scoop-hero-kids.png">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are specific cards guaranteed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Poke Pulls guarantees the listed rarity tier and card count, but no specific card, character, set, artwork, or market value is guaranteed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What condition are the cards in?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cards are expected to be near mint to lightly played. Damaged, creased, torn, or water-damaged cards are not packed in paid scoops."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="announcement">Free sleeve upgrade on every scoop this week</div>
@@ -20,14 +50,12 @@
         <span>Poke Pulls</span>
       </a>
       <nav aria-label="Primary">
-        <a href="#scoops">Scoops</a>
+        <a href="shop.html">Shop</a>
         <a href="try-it.html">Try it</a>
-        <a href="#how">How it works</a>
+        <a href="how-poke-pulls-work.html">How it works</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <button class="cart-button" type="button" data-cart-open>
-        Cart <span data-cart-count>0</span>
-      </button>
+      <a class="cart-button nav-link-button" href="shop.html">Shop</a>
     </header>
 
     <main id="top">
@@ -38,10 +66,10 @@
           <h1 id="hero-title">Mystery card scoops for mini collectors</h1>
           <p>
             Pick a rarity tier, then the mystery bead scoop decides which card
-            elements come out. Fire, Water, Grass, Lightning, and more are all in play.
+            elements come out. Each bead equals one card, with clear guarantees and no damaged cards.
           </p>
           <div class="hero-actions">
-            <a class="primary-link" href="#scoops">Shop scoops</a>
+            <a class="primary-link" href="#scoops">Shop Mystery Scoops</a>
             <a class="secondary-link" href="try-it.html">Try a scoop</a>
           </div>
         </div>
@@ -49,8 +77,8 @@
 
       <section class="trust-row" aria-label="Store highlights">
         <span>Kid-run idea</span>
-        <span>Rarity tiers</span>
-        <span>Mystery elements</span>
+        <span>Clear rarity guarantees</span>
+        <span>No damaged cards</span>
         <span>Parent-packed orders</span>
       </section>
 
@@ -58,7 +86,12 @@
         <div class="section-heading">
           <p class="eyebrow">Choose your rarity</p>
           <h2 id="scoops-title">The tier is chosen, the elements are a surprise</h2>
+          <p>
+            Poke Pulls is an independent collector shop. Products are mystery bulk-card scoops
+            for collectors and party favors, not official Pokemon, Nintendo, or licensed products.
+          </p>
         </div>
+        <div class="setup-notice" data-checkout-setup hidden></div>
 
         <div class="filters" aria-label="Product filters">
           <button class="filter is-active" type="button" data-filter="all">All</button>
@@ -68,6 +101,38 @@
         </div>
 
         <div class="product-grid" data-products></div>
+      </section>
+
+      <section class="info-grid" aria-label="Purchase details">
+        <article>
+          <p class="eyebrow">Card count</p>
+          <h2>How many cards do I get?</h2>
+          <p>
+            Every bead equals one card. If a scoop says 30 beads, the order includes
+            30 cards. The bead colors decide which element bins the cards come from.
+          </p>
+        </article>
+        <article>
+          <p class="eyebrow">Inside the scoop</p>
+          <h2>What could be inside?</h2>
+          <p>
+            Expect common, uncommon, rare, reverse-holo, holo, trainer, and energy-style
+            cards depending on the tier. No specific card, character, set, or value is promised.
+          </p>
+        </article>
+      </section>
+
+      <section class="sample-scoops" aria-labelledby="sample-title">
+        <div class="section-heading">
+          <p class="eyebrow">Packed examples</p>
+          <h2 id="sample-title">Sample packed scoops</h2>
+          <p>Use these placeholder examples until actual packed-order photos are ready.</p>
+        </div>
+        <div class="sample-grid">
+          <article><span class="sample-pack sample-common"></span><h3>Common Scoop</h3><p>Team-bagged bulk cards with bead color key.</p></article>
+          <article><span class="sample-pack sample-rare"></span><h3>Rare Scoop</h3><p>Rare-tier cards sleeved before packing.</p></article>
+          <article><span class="sample-pack sample-premium"></span><h3>Premium Scoop</h3><p>Sleeved holo or reverse-holo included.</p></article>
+        </div>
       </section>
 
       <section class="builder" aria-labelledby="builder-title">
@@ -147,35 +212,35 @@
         </details>
         <details>
           <summary>How could this become a real store?</summary>
-          <p>Connect the products to Shopify, Square, or Etsy, then replace this demo cart with live checkout.</p>
+          <p>Connect Shopify Buy Button values in commerce-config.js to show live checkout links. Until then, checkout buttons stay hidden.</p>
         </details>
       </section>
 
       <section class="signup" aria-labelledby="signup-title">
         <h2 id="signup-title">Get the next drop list</h2>
-        <form>
+        <form data-signup-form>
           <label class="sr-only" for="email">Email address</label>
-          <input id="email" type="email" placeholder="parent@email.com">
+          <input id="email" name="email" type="email" placeholder="parent@email.com" required>
           <button type="submit">Notify me</button>
+          <p class="signup-status" data-signup-status aria-live="polite"></p>
         </form>
       </section>
     </main>
 
-    <aside class="cart" aria-label="Cart" aria-hidden="true" data-cart>
-      <div class="cart-panel">
-        <div class="cart-head">
-          <h2>Your scoops</h2>
-          <button type="button" aria-label="Close cart" data-cart-close>&times;</button>
-        </div>
-        <div class="cart-items" data-cart-items></div>
-        <div class="cart-total">
-          <span>Total</span>
-          <strong data-cart-total>$0</strong>
-        </div>
-        <button class="primary-button checkout-button" type="button">Start checkout</button>
-      </div>
-    </aside>
+    <footer class="site-footer">
+      <p>Poke Pulls is an independent collector shop and is not affiliated with, endorsed by, or sponsored by The Pokémon Company, Nintendo, Game Freak, or Creatures Inc.</p>
+      <nav aria-label="Footer">
+        <a href="contact.html">Contact</a>
+        <a href="shipping.html">Shipping</a>
+        <a href="returns.html">Returns</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </nav>
+    </footer>
 
-    <script src="script.js?v=2"></script>
+    <script src="commerce-config.js"></script>
+    <script src="products.js"></script>
+    <script src="script.js?v=4"></script>
   </body>
 </html>
