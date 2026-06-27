@@ -45,6 +45,11 @@ const stage = document.querySelector("[data-scoop-stage]");
 const beadList = document.querySelector("[data-bead-list]");
 const cardList = document.querySelector("[data-card-list]");
 const resetButton = document.querySelector("[data-reset-scoop]");
+const machine = document.querySelector("[data-machine]");
+const machineGlobe = document.querySelector("[data-machine-globe]");
+const machineTray = document.querySelector("[data-machine-tray]");
+const machineKnob = document.querySelector("[data-machine-knob]");
+let isRunning = false;
 
 function chooseElement() {
   return elements[Math.floor(Math.random() * elements.length)];
@@ -59,7 +64,9 @@ function summarizePull(pull) {
 
 function renderEmptyState() {
   resultTitle.textContent = "Ready to scoop";
-  stage.innerHTML = '<p>Press “Scoop beads” to reveal one card element per bead.</p>';
+  machine?.classList.remove("is-turning", "has-pull");
+  renderGlobePreview();
+  machineTray.innerHTML = "<p>Turn the knob to pour beads into rows.</p>";
   beadList.innerHTML = "";
   cardList.innerHTML = "";
 }
@@ -69,15 +76,7 @@ function renderPull(pull, tier) {
 
   resultTitle.textContent = `${tier.label}: ${pull.length} beads = ${pull.length} cards`;
 
-  stage.innerHTML = pull
-    .map(
-      (element, index) => `
-        <span class="pulled-bead ${element.className}" style="--delay: ${index * 18}ms">
-          <span class="sr-only">${element.name}</span>
-        </span>
-      `
-    )
-    .join("");
+  renderTray(pull);
 
   beadList.innerHTML = Object.entries(summary)
     .map(([name, count]) => {
@@ -113,11 +112,92 @@ function renderPull(pull, tier) {
   );
 }
 
-function runScoop() {
+function renderGlobePreview() {
+  if (!machineGlobe) return;
+
+  const preview = Array.from({ length: 34 }, (_, index) => {
+    const element = elements[index % elements.length];
+    return `<span class="globe-bead ${element.className}" style="--x: ${12 + ((index * 23) % 76)}%; --y: ${12 + ((index * 37) % 70)}%; --s: ${0.72 + (index % 5) * 0.07};"></span>`;
+  });
+
+  machineGlobe.innerHTML = preview.join("");
+}
+
+function renderTray(pull) {
+  if (!machineTray) return;
+
+  machineTray.innerHTML = `
+    <div class="pour-stream" aria-hidden="true">
+      ${pull
+        .slice(0, 18)
+        .map((element, index) => `<span class="stream-bead ${element.className}" style="--i: ${index}; --x: ${(index % 6) - 2.5};"></span>`)
+        .join("")}
+    </div>
+    <div class="settled-rows">
+      ${pull
+        .map(
+          (element, index) => `
+            <span class="settled-bead ${element.className}" style="--i: ${index}">
+              <span class="sr-only">${element.name}</span>
+            </span>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function playMachineSound() {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return;
+
+  const ctx = new AudioContext();
+  const start = ctx.currentTime;
+
+  function tone(freq, time, duration, type = "square", volume = 0.05) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, start + time);
+    gain.gain.setValueAtTime(0.0001, start + time);
+    gain.gain.exponentialRampToValueAtTime(volume, start + time + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + time + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(start + time);
+    osc.stop(start + time + duration + 0.02);
+  }
+
+  tone(180, 0, 0.09);
+  tone(120, 0.11, 0.1);
+  tone(210, 0.23, 0.08);
+  tone(420, 0.42, 0.08, "triangle", 0.04);
+
+  setTimeout(() => ctx.close(), 900);
+}
+
+function runScoop({ withSound = false } = {}) {
+  if (isRunning) return;
+  isRunning = true;
+
   const data = new FormData(form);
   const tier = tiers[data.get("tier")];
   const pull = Array.from({ length: tier.beads }, chooseElement);
-  renderPull(pull, tier);
+
+  if (withSound) playMachineSound();
+
+  machine?.classList.remove("has-pull");
+  machine?.classList.add("is-turning");
+  machineTray.innerHTML = "<p>Turning...</p>";
+
+  setTimeout(() => {
+    renderPull(pull, tier);
+    machine?.classList.add("has-pull");
+  }, 620);
+
+  setTimeout(() => {
+    machine?.classList.remove("is-turning");
+    isRunning = false;
+  }, 1450);
 }
 
 function updateTierCount() {
@@ -129,10 +209,11 @@ tierSelect.addEventListener("change", updateTierCount);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  runScoop();
+  runScoop({ withSound: true });
 });
 
 resetButton.addEventListener("click", renderEmptyState);
+machineKnob?.addEventListener("click", () => runScoop({ withSound: true }));
 
 renderEmptyState();
 updateTierCount();

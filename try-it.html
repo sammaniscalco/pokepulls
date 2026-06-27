@@ -36,20 +36,22 @@
     <main>
       <section class="try-hero" aria-labelledby="try-title">
         <div>
-          <p class="eyebrow">Mystery scoop simulator</p>
-          <h1 id="try-title">Run a pretend scoop and reveal the beads</h1>
+          <p class="eyebrow">Candy machine simulator</p>
+          <h1 id="try-title">Turn the knob and reveal the beads</h1>
           <p>
-            Choose the rarity tier, press scoop, and the simulator will pull random
-            bead colors. Each bead is one card, and its color decides that card's element.
+            Choose the rarity tier, click the candy machine knob, and watch the
+            beads pour out into organized rows. Each bead is one card.
           </p>
         </div>
-        <div class="scoop-preview" aria-hidden="true">
-          <span class="floating-bead bead-fire"></span>
-          <span class="floating-bead bead-water"></span>
-          <span class="floating-bead bead-grass"></span>
-          <span class="floating-bead bead-lightning"></span>
-          <span class="floating-bead bead-psychic"></span>
-          <span class="scoop-bowl"></span>
+        <div class="scoop-preview candy-preview" aria-hidden="true">
+          <div class="preview-globe">
+            <span class="floating-bead bead-fire"></span>
+            <span class="floating-bead bead-water"></span>
+            <span class="floating-bead bead-grass"></span>
+            <span class="floating-bead bead-lightning"></span>
+            <span class="floating-bead bead-psychic"></span>
+          </div>
+          <span class="preview-base"></span>
         </div>
       </section>
 
@@ -72,25 +74,35 @@
               Cards / beads in scoop
               <output class="tier-count" data-bead-count>30 beads = 30 cards</output>
             </label>
-            <button class="primary-button" type="submit">Scoop beads</button>
+            <button class="primary-button" type="submit">Turn machine</button>
           </form>
-          <p class="sim-note">
-            In a real order, your kids can scoop the beads on video, then pack
-            one matching card for each bead pulled.
-          </p>
+          <p class="sim-note">Sound plays when the machine turns. In a real order, pack one matching card for each bead.</p>
         </div>
 
-        <div class="sim-result" aria-live="polite">
+        <div class="sim-result candy-result" aria-live="polite" data-machine>
           <div class="result-head">
             <div>
-              <p class="eyebrow">Latest pull</p>
+              <p class="eyebrow">Candy pull</p>
               <h2 data-result-title>Ready to scoop</h2>
             </div>
             <button class="secondary-mini" type="button" data-reset-scoop>Reset</button>
           </div>
 
-          <div class="scoop-stage" data-scoop-stage>
-            <p>Press “Scoop beads” to reveal one card element per bead.</p>
+          <div class="machine-stage" data-scoop-stage>
+            <div class="candy-machine">
+              <div class="machine-globe" data-machine-globe></div>
+              <div class="machine-neck"></div>
+              <div class="machine-body">
+                <button class="machine-knob" type="button" data-machine-knob aria-label="Turn candy machine knob">
+                  <span></span>
+                </button>
+                <div class="machine-window">PP</div>
+                <div class="machine-chute"></div>
+              </div>
+              <div class="machine-tray" data-machine-tray>
+                <p>Turn the knob to pour beads into rows.</p>
+              </div>
+            </div>
           </div>
 
           <div class="result-grid">
@@ -119,6 +131,6 @@
       </nav>
     </footer>
 
-    <script src="simulator.js?v=3"></script>
+    <script src="simulator.js?v=4"></script>
   </body>
 </html>
