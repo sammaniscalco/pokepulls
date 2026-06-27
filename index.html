@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poke Pulls</title>
+    <meta
+      name="description"
+      content="A kid-run Pokemon card mystery scoop concept where bead colors reveal the card element."
+    >
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="announcement">Free sleeve upgrade on every scoop this week</div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Poke Pulls home">
+        <span class="brand-mark">PP</span>
+        <span>Poke Pulls</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#scoops">Scoops</a>
+        <a href="try-it.html">Try it</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="cart-button" type="button" data-cart-open>
+        Cart <span data-cart-count>0</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img src="assets/card-scoop-hero-kids.png" alt="Colorful mystery beads, trading card packs, and a scoop on a cheerful craft table">
+        <div class="hero-copy">
+          <p class="eyebrow">Scoop the beads, reveal the cards</p>
+          <h1 id="hero-title">Mystery card scoops for mini collectors</h1>
+          <p>
+            Pick a rarity tier, then the mystery bead scoop decides which card
+            elements come out. Fire, Water, Grass, Lightning, and more are all in play.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#scoops">Shop scoops</a>
+            <a class="secondary-link" href="try-it.html">Try a scoop</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-row" aria-label="Store highlights">
+        <span>Kid-run idea</span>
+        <span>Rarity tiers</span>
+        <span>Mystery elements</span>
+        <span>Parent-packed orders</span>
+      </section>
+
+      <section class="section" id="scoops" aria-labelledby="scoops-title">
+        <div class="section-heading">
+          <p class="eyebrow">Choose your rarity</p>
+          <h2 id="scoops-title">The tier is chosen, the elements are a surprise</h2>
+        </div>
+
+        <div class="filters" aria-label="Product filters">
+          <button class="filter is-active" type="button" data-filter="all">All</button>
+          <button class="filter" type="button" data-filter="starter">Common</button>
+          <button class="filter" type="button" data-filter="rare">Rare</button>
+          <button class="filter" type="button" data-filter="premium">Premium</button>
+        </div>
+
+        <div class="product-grid" data-products></div>
+      </section>
+
+      <section class="builder" aria-labelledby="builder-title">
+        <div>
+          <p class="eyebrow">Bead reveal</p>
+          <h2 id="builder-title">Every bead is one card</h2>
+          <p>
+            Buyers do not pick Fire, Water, Grass, or any other element. Your kids
+            scoop mystery beads on camera or at packing time, then match those bead
+            colors one-for-one to the cards that go into the order.
+          </p>
+        </div>
+        <div class="bead-key" aria-label="Bead color key">
+          <span><b class="bead bead-fire"></b> Fire</span>
+          <span><b class="bead bead-water"></b> Water</span>
+          <span><b class="bead bead-grass"></b> Grass</span>
+          <span><b class="bead bead-lightning"></b> Lightning</span>
+          <span><b class="bead bead-psychic"></b> Psychic</span>
+          <span><b class="bead bead-fighting"></b> Fighting</span>
+          <span><b class="bead bead-dark"></b> Darkness</span>
+          <span><b class="bead bead-metal"></b> Metal</span>
+        </div>
+      </section>
+
+      <section class="how" id="how" aria-labelledby="how-title">
+        <div class="section-heading">
+          <p class="eyebrow">The scoop system</p>
+          <h2 id="how-title">Simple enough for kids to run, clear enough for buyers</h2>
+        </div>
+        <div class="steps">
+          <article>
+            <span>1</span>
+            <h3>Sort</h3>
+            <p>Bulk cards get sorted by rarity, element, condition, and duplicates.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Reveal</h3>
+            <p>Each bead reveals one card element. The customer does not choose it.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Pack</h3>
+            <p>Cards ship in team bags with a color key so every mystery pull feels intentional.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature-band" aria-labelledby="feature-title">
+        <div>
+          <p class="eyebrow">Starter opportunity</p>
+          <h2 id="feature-title">Turn duplicate cards into rarity-based mystery inventory</h2>
+          <p>
+            Use low-cost common and uncommon cards as the base, then create higher
+            tiers for rares, reverse holos, and special extras with clear guarantees.
+          </p>
+        </div>
+        <ul>
+          <li>Buyers choose rarity level, not the element.</li>
+          <li>Beads make the pull feel visual and fun.</li>
+          <li>Clear tier guarantees avoid overpromising hits.</li>
+        </ul>
+      </section>
+
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Clear rules make the shop feel trustworthy</h2>
+        </div>
+        <details open>
+          <summary>Are official Pokemon logos or guaranteed rare cards included?</summary>
+          <p>No official logos are used in this mockup. Product copy should only promise what your kids can reliably pack.</p>
+        </details>
+        <details>
+          <summary>What condition should cards be in?</summary>
+          <p>Keep damaged cards out of paid scoops. Light-play cards can go in a clearly labeled budget bin.</p>
+        </details>
+        <details>
+          <summary>How could this become a real store?</summary>
+          <p>Connect the products to Shopify, Square, or Etsy, then replace this demo cart with live checkout.</p>
+        </details>
+      </section>
+
+      <section class="signup" aria-labelledby="signup-title">
+        <h2 id="signup-title">Get the next drop list</h2>
+        <form>
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" type="email" placeholder="parent@email.com">
+          <button type="submit">Notify me</button>
+        </form>
+      </section>
+    </main>
+
+    <aside class="cart" aria-label="Cart" aria-hidden="true" data-cart>
+      <div class="cart-panel">
+        <div class="cart-head">
+          <h2>Your scoops</h2>
+          <button type="button" aria-label="Close cart" data-cart-close>&times;</button>
+        </div>
+        <div class="cart-items" data-cart-items></div>
+        <div class="cart-total">
+          <span>Total</span>
+          <strong data-cart-total>$0</strong>
+        </div>
+        <button class="primary-button checkout-button" type="button">Start checkout</button>
+      </div>
+    </aside>
+
+    <script src="script.js?v=2"></script>
+  </body>
+</html>
