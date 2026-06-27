@@ -86,8 +86,7 @@ window.POKE_PULLS_PRODUCTS = [
     bg: "#e5f1ff",
     icons: ["EX", "$5", "!"],
     tierLabel: "Single card",
-    baseLabel: "Bead pull",
-    baseCards: "No bead scoop",
+    baseCards: "Bead scoop",
     bonus: "1 EX-style card",
     description: "A simple five-dollar option for collectors who just want an EX-style card."
   }
