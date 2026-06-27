@@ -558,7 +558,8 @@ p {
 }
 
 .info-grid,
-.sample-scoops {
+.sample-scoops,
+.single-ex-band {
   padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem);
 }
 
@@ -577,6 +578,27 @@ p {
   background: var(--white);
   padding: 1.2rem;
   box-shadow: 0 8px 30px rgba(22, 22, 22, 0.05);
+}
+
+.single-ex-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #f5fbff;
+  border-block: 1px solid rgba(39, 119, 198, 0.16);
+}
+
+.single-ex-band div {
+  max-width: 780px;
+}
+
+.single-ex-band h2 {
+  max-width: 760px;
+}
+
+.single-ex-band p {
+  margin-bottom: 0;
 }
 
 .sample-grid {
@@ -1601,6 +1623,11 @@ p {
   .info-grid,
   .comments-layout {
     grid-template-columns: 1fr;
+  }
+
+  .single-ex-band {
+    align-items: start;
+    flex-direction: column;
   }
 
   .sample-grid {

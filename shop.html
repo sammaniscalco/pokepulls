@@ -7,7 +7,7 @@
     <meta name="description" content="Shop Poke Pulls mystery card scoops by rarity tier with secure Stripe Checkout. Each bead equals one card, with clear guarantees and no specific card promised.">
     <link rel="canonical" href="https://pokepulls.vercel.app/shop">
     <meta property="og:title" content="Shop Mystery Card Scoops | Poke Pulls">
-    <meta property="og:description" content="Common, Common + Holo, Common + EX, and Common + Pack mystery card scoops for collectors and party favors.">
+    <meta property="og:description" content="Common, Common + Holo, Common + EX, Common + Pack, and single EX-style card options for collectors and party favors.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pokepulls.vercel.app/shop">
     <meta property="og:image" content="https://pokepulls.vercel.app/assets/card-scoop-hero-kids.png">
@@ -21,7 +21,8 @@
           {"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Common Scoop", "description": "30-card mystery scoop with common rarity guarantee.", "offers": {"@type": "Offer", "price": "8", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
           {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Common + Holo Scoop", "description": "30-card mystery scoop with common cards plus a guaranteed sleeved holo or reverse-holo card.", "offers": {"@type": "Offer", "price": "18", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
           {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Common + EX Scoop", "description": "30-card mystery scoop with common cards plus a guaranteed sleeved EX-style card.", "offers": {"@type": "Offer", "price": "28", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
-          {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Common + Pack Scoop", "description": "50-card mystery scoop with common cards plus a pack-style bonus.", "offers": {"@type": "Offer", "price": "45", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}}
+          {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Common + Pack Scoop", "description": "50-card mystery scoop with common cards plus a pack-style bonus.", "offers": {"@type": "Offer", "price": "45", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}},
+          {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Single EX Card", "description": "One sleeved EX-style card with no specific card guaranteed.", "offers": {"@type": "Offer", "price": "5", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}}}
         ]
       }
     </script>
@@ -56,6 +57,7 @@
           <button class="filter" type="button" data-filter="holo">Common + Holo</button>
           <button class="filter" type="button" data-filter="ex">Common + EX</button>
           <button class="filter" type="button" data-filter="pack">Common + Pack</button>
+          <button class="filter" type="button" data-filter="single">Single EX</button>
         </div>
         <div class="product-grid" data-products></div>
       </section>
@@ -72,7 +74,7 @@
       </nav>
     </footer>
     <script src="commerce-config.js"></script>
-    <script src="products.js"></script>
-    <script src="script.js?v=6"></script>
+    <script src="products.js?v=2"></script>
+    <script src="script.js?v=8"></script>
   </body>
 </html>

@@ -23,6 +23,7 @@ Set these Vercel environment variables before accepting real orders:
 - `STRIPE_HOLO_PRICE_ID`
 - `STRIPE_EX_PRICE_ID`
 - `STRIPE_PACK_PRICE_ID`
+- `STRIPE_SINGLE_EX_PRICE_ID`
 - `SITE_URL` set to `https://pokepulls.vercel.app`
 
 Email signup is also disabled until `emailSignupEndpoint` is configured.

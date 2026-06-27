@@ -91,7 +91,7 @@ function renderProducts(filter = "all") {
             </div>
             <dl class="product-facts">
               <div><dt>Price</dt><dd>${money(product.price)}</dd></div>
-              <div><dt>Cards</dt><dd>${product.cards} beads / ${product.cards} cards</dd></div>
+              <div><dt>Cards</dt><dd>${product.countLabel || `${product.cards} beads / ${product.cards} cards`}</dd></div>
               <div><dt>Guarantee</dt><dd>${product.rarityGuarantee}</dd></div>
               <div><dt>Condition</dt><dd>${product.condition}</dd></div>
               <div><dt>Shipping</dt><dd>${product.shipping}</dd></div>

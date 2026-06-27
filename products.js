@@ -70,5 +70,24 @@ window.POKE_PULLS_PRODUCTS = [
     baseCards: "50 common cards",
     bonus: "1 sealed booster-style pack or pack add-on",
     description: "The largest tier: common-card pull plus a pack-style bonus for gifting."
+  },
+  {
+    id: "single-ex",
+    name: "Single EX Card",
+    type: "single",
+    price: 5,
+    cards: 1,
+    countLabel: "1 sleeved EX-style card",
+    rarityGuarantee: "Includes one sleeved EX-style card.",
+    condition: "Near mint to lightly played. No creased, torn, or water-damaged cards.",
+    shipping: "Ships sleeved with basic card protection.",
+    noGuarantee: "No specific EX card, character, set, artwork, or market value is guaranteed.",
+    accent: "#2777c6",
+    bg: "#e5f1ff",
+    icons: ["EX", "$5", "!"],
+    tierLabel: "Single card",
+    baseCards: "No bead scoop",
+    bonus: "1 EX-style card",
+    description: "A simple five-dollar option for collectors who just want an EX-style card."
   }
 ];

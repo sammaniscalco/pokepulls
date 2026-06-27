@@ -16,6 +16,10 @@ const products = {
   pack: {
     name: "Common + Pack Scoop",
     priceEnv: "STRIPE_PACK_PRICE_ID"
+  },
+  "single-ex": {
+    name: "Single EX Card",
+    priceEnv: "STRIPE_SINGLE_EX_PRICE_ID"
   }
 };
 
