@@ -12,6 +12,9 @@ window.POKE_PULLS_PRODUCTS = [
     accent: "#3d9a52",
     bg: "#e4f6e9",
     icons: ["C", "?", "+"],
+    tierLabel: "Common",
+    baseCards: "30 common cards",
+    bonus: "No bonus card or pack",
     description: "A starter mystery scoop for binder builders and younger collectors."
   },
   {
@@ -27,6 +30,9 @@ window.POKE_PULLS_PRODUCTS = [
     accent: "#7665c9",
     bg: "#eeeafd",
     icons: ["H", "*", "?"],
+    tierLabel: "Holo upgrade",
+    baseCards: "30 common cards",
+    bonus: "1 sleeved holo or reverse-holo card",
     description: "A common-card mystery scoop with a guaranteed sleeved shine."
   },
   {
@@ -42,6 +48,9 @@ window.POKE_PULLS_PRODUCTS = [
     accent: "#d94b82",
     bg: "#ffe5ef",
     icons: ["EX", "*", "+"],
+    tierLabel: "EX upgrade",
+    baseCards: "30 common cards",
+    bonus: "1 sleeved EX-style hit card",
     description: "A bigger reveal tier with common cards and one sleeved EX-style card."
   },
   {
@@ -57,6 +66,9 @@ window.POKE_PULLS_PRODUCTS = [
     accent: "#e85043",
     bg: "#ffe8df",
     icons: ["P", "*", "+"],
+    tierLabel: "Pack upgrade",
+    baseCards: "50 common cards",
+    bonus: "1 sealed booster-style pack or pack add-on",
     description: "The largest tier: common-card pull plus a pack-style bonus for gifting."
   }
 ];

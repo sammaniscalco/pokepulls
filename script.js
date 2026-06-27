@@ -75,8 +75,19 @@ function renderProducts(filter = "all") {
             </div>
           </div>
           <div class="product-body">
+            <span class="tier-badge">${product.tierLabel}</span>
             <h3>${product.name}</h3>
             <p>${product.description}</p>
+            <div class="tier-breakdown" aria-label="${product.name} tier breakdown">
+              <div>
+                <span>Base</span>
+                <strong>${product.baseCards}</strong>
+              </div>
+              <div>
+                <span>Bonus</span>
+                <strong>${product.bonus}</strong>
+              </div>
+            </div>
             <dl class="product-facts">
               <div><dt>Price</dt><dd>${money(product.price)}</dd></div>
               <div><dt>Cards</dt><dd>${product.cards} beads / ${product.cards} cards</dd></div>

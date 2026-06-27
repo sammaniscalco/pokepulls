@@ -314,10 +314,15 @@ p {
   min-height: 100%;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 2px solid color-mix(in srgb, var(--accent), var(--white) 52%);
   border-radius: 8px;
   background: var(--white);
   box-shadow: 0 8px 30px rgba(22, 22, 22, 0.06);
+}
+
+.product-card:hover {
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--accent), transparent 78%);
+  transform: translateY(-2px);
 }
 
 .product-art {
@@ -386,6 +391,21 @@ p {
   padding: 1rem;
 }
 
+.tier-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  padding: 0 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--accent), var(--white) 38%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent), var(--white) 84%);
+  color: color-mix(in srgb, var(--accent), var(--ink) 34%);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
 .product-body p {
   margin-bottom: 0;
   font-size: 0.95rem;
@@ -397,6 +417,36 @@ p {
   justify-content: space-between;
   gap: 0.8rem;
   margin-top: auto;
+}
+
+.tier-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.tier-breakdown div {
+  min-height: 5.2rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--accent), var(--white) 58%);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent), var(--white) 91%);
+}
+
+.tier-breakdown span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.tier-breakdown strong {
+  display: block;
+  color: #23272c;
+  font-size: 0.94rem;
+  line-height: 1.32;
 }
 
 .price {
@@ -529,7 +579,7 @@ p {
 
 .sample-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -564,6 +614,12 @@ p {
   --sample-a: rgba(217, 75, 130, 0.68);
   --sample-b: rgba(31, 158, 154, 0.56);
   --sample-c: rgba(243, 189, 62, 0.75);
+}
+
+.sample-pack-tier {
+  --sample-a: rgba(232, 80, 67, 0.68);
+  --sample-b: rgba(61, 154, 82, 0.56);
+  --sample-c: rgba(39, 119, 198, 0.65);
 }
 
 .builder {
