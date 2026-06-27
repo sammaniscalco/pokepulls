@@ -5,17 +5,17 @@ const products = {
     name: "Common Scoop",
     priceEnv: "STRIPE_COMMON_PRICE_ID"
   },
-  rare: {
-    name: "Rare Scoop",
-    priceEnv: "STRIPE_RARE_PRICE_ID"
+  holo: {
+    name: "Common + Holo Scoop",
+    priceEnv: "STRIPE_HOLO_PRICE_ID"
   },
-  premium: {
-    name: "Premium Scoop",
-    priceEnv: "STRIPE_PREMIUM_PRICE_ID"
+  ex: {
+    name: "Common + EX Scoop",
+    priceEnv: "STRIPE_EX_PRICE_ID"
   },
-  party: {
-    name: "Bundle / Party Pack",
-    priceEnv: "STRIPE_PARTY_PRICE_ID"
+  pack: {
+    name: "Common + Pack Scoop",
+    priceEnv: "STRIPE_PACK_PRICE_ID"
   }
 };
 

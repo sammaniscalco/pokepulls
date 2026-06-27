@@ -11,29 +11,24 @@ const elements = [
 
 const tiers = {
   common: {
-    label: "Common Builder",
+    label: "Common",
     beads: 30,
     rule: "Pack common cards for each bead"
   },
-  uncommon: {
-    label: "Common + Uncommon",
-    beads: 25,
-    rule: "Mix common and uncommon cards for each bead"
-  },
-  rare: {
-    label: "Rare Hunt",
-    beads: 18,
-    rule: "Pack rare-tier cards from the pulled elements"
-  },
   holo: {
-    label: "Holo Hit",
-    beads: 20,
-    rule: "One pulled bead becomes the sleeved holo or reverse-holo"
+    label: "Common + Holo",
+    beads: 30,
+    rule: "Pack common cards for each bead, then add one sleeved holo or reverse-holo"
   },
-  jackpot: {
-    label: "Collector Jackpot",
+  ex: {
+    label: "Common + EX",
+    beads: 30,
+    rule: "Pack common cards for each bead, then add one sleeved EX-style hit"
+  },
+  pack: {
+    label: "Common + Pack",
     beads: 50,
-    rule: "Pack one card per bead, then add sleeves and a bonus extra"
+    rule: "Pack one common card per bead, then add one sealed booster-style pack"
   }
 };
 
