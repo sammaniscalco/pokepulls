@@ -601,10 +601,24 @@ p {
 .bead {
   width: 1.6rem;
   height: 1.6rem;
+  display: inline-grid;
+  place-items: center;
   flex: 0 0 auto;
   border: 3px solid var(--white);
   border-radius: 50%;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+.bead svg,
+.floating-bead svg,
+.globe-bead svg,
+.stream-bead svg,
+.settled-bead svg {
+  width: 62%;
+  height: 62%;
+  fill: rgba(255, 255, 255, 0.95);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.22));
+  pointer-events: none;
 }
 
 .bead-fire {
@@ -718,6 +732,8 @@ p {
 
 .floating-bead {
   position: absolute;
+  display: grid;
+  place-items: center;
   width: clamp(3.2rem, 7vw, 5rem);
   aspect-ratio: 1;
   border: 6px solid var(--white);
@@ -909,6 +925,8 @@ p {
 
 .globe-bead {
   position: absolute;
+  display: grid;
+  place-items: center;
   left: var(--x);
   top: var(--y);
   width: calc(1.45rem * var(--s));
@@ -1030,6 +1048,8 @@ p {
 
 .stream-bead {
   position: absolute;
+  display: grid;
+  place-items: center;
   left: calc(50% + var(--x) * 9px);
   top: -28px;
   width: 1.2rem;
@@ -1052,6 +1072,8 @@ p {
 .settled-bead {
   width: min(100%, 2rem);
   aspect-ratio: 1;
+  display: grid;
+  place-items: center;
   justify-self: center;
   border: 3px solid #ffffff;
   border-radius: 50%;
