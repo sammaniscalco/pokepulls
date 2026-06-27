@@ -218,6 +218,61 @@
         </details>
       </section>
 
+      <section class="comments" id="comments" aria-labelledby="comments-title">
+        <div class="section-heading">
+          <p class="eyebrow">Collector comments</p>
+          <h2 id="comments-title">Share a pull note</h2>
+          <p>
+            Let parents and young collectors leave a quick note about their scoop.
+            New comments should be reviewed before being published.
+          </p>
+        </div>
+        <div class="comments-layout">
+          <div class="comment-list" aria-label="Recent comments">
+            <article class="comment-card">
+              <span>Common + Holo</span>
+              <p>"The bead reveal made sorting the cards feel like part of the game."</p>
+              <strong>Parent note</strong>
+            </article>
+            <article class="comment-card">
+              <span>Common + EX</span>
+              <p>"Clear card count, fun surprise, and the bonus card was sleeved."</p>
+              <strong>Collector family</strong>
+            </article>
+            <article class="comment-card">
+              <span>Common + Pack</span>
+              <p>"Easy party favor idea because every kid gets a real reveal moment."</p>
+              <strong>Birthday idea</strong>
+            </article>
+          </div>
+          <form class="comment-form" data-comment-form>
+            <label>
+              Name
+              <input name="name" type="text" autocomplete="name" placeholder="Sam" required>
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" placeholder="parent@email.com" required>
+            </label>
+            <label>
+              Scoop tier
+              <select name="tier" required>
+                <option value="Common">Common</option>
+                <option value="Common + Holo">Common + Holo</option>
+                <option value="Common + EX">Common + EX</option>
+                <option value="Common + Pack">Common + Pack</option>
+              </select>
+            </label>
+            <label>
+              Comment
+              <textarea name="comment" rows="5" maxlength="600" placeholder="Tell us what made the pull fun." required></textarea>
+            </label>
+            <button class="primary-button" type="submit">Send comment</button>
+            <p class="comment-status" data-comment-status aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
       <section class="signup" aria-labelledby="signup-title">
         <h2 id="signup-title">Get the next drop list</h2>
         <form data-signup-form>
@@ -243,6 +298,6 @@
 
     <script src="commerce-config.js"></script>
     <script src="products.js"></script>
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=7"></script>
   </body>
 </html>

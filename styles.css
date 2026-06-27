@@ -29,7 +29,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -275,7 +276,8 @@ p {
 
 .section,
 .how,
-.faq {
+.faq,
+.comments {
   padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem);
 }
 
@@ -1247,7 +1249,10 @@ p {
   color: #513a11;
 }
 
-.signup input {
+.signup input,
+.comment-form input,
+.comment-form select,
+.comment-form textarea {
   min-width: 0;
   width: 100%;
   min-height: 2.8rem;
@@ -1255,6 +1260,12 @@ p {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--white);
+}
+
+.comment-form textarea {
+  min-height: 9rem;
+  padding-block: 0.75rem;
+  resize: vertical;
 }
 
 .steps {
@@ -1332,6 +1343,80 @@ p {
 
 .faq details p {
   max-width: 850px;
+}
+
+.comments {
+  background: #eaf3f7;
+  border-top: 1px solid rgba(22, 22, 22, 0.08);
+}
+
+.comments-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.comment-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.comment-card,
+.comment-form {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 8px 30px rgba(22, 22, 22, 0.05);
+}
+
+.comment-card {
+  padding: 1.1rem;
+}
+
+.comment-card span {
+  display: inline-flex;
+  min-height: 1.9rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0 0.65rem;
+  border-radius: 999px;
+  background: #fff3c9;
+  color: #513a11;
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.comment-card p {
+  margin-bottom: 0.8rem;
+  color: #2d3238;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.comment-card strong {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.comment-form {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+}
+
+.comment-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: #2d3238;
+  font-weight: 850;
+}
+
+.comment-status {
+  margin: 0;
+  color: #315464;
+  font-size: 0.92rem;
 }
 
 .signup {
@@ -1513,7 +1598,8 @@ p {
   .feature-band,
   .try-hero,
   .simulator,
-  .info-grid {
+  .info-grid,
+  .comments-layout {
     grid-template-columns: 1fr;
   }
 

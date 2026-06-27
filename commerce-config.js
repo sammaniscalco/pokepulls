@@ -3,5 +3,6 @@ window.POKE_PULLS_CONFIG = {
   analyticsProvider: "",
   analyticsEndpoint: "",
   emailSignupEndpoint: "",
+  commentEndpoint: "",
   checkoutProvider: "stripe"
 };

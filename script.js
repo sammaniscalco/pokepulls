@@ -4,6 +4,7 @@ const productGrid = document.querySelector("[data-products]");
 const filters = document.querySelectorAll("[data-filter]");
 const setupNotice = document.querySelector("[data-checkout-setup]");
 const signupForm = document.querySelector("[data-signup-form]");
+const commentForm = document.querySelector("[data-comment-form]");
 
 function money(value) {
   return `$${value}`;
@@ -199,6 +200,39 @@ signupForm?.addEventListener("submit", async (event) => {
     status.textContent = "Signup could not be completed. Please try again later.";
   }
 });
+
+commentForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const status = commentForm.querySelector("[data-comment-status]");
+  const formData = new FormData(commentForm);
+
+  trackEvent("comment_submitted", { configured: Boolean(config.commentEndpoint), tier: formData.get("tier") });
+
+  if (!config.commentEndpoint) {
+    status.textContent = "Comments are not connected yet. Add a Formspree, Basin, Netlify Forms, or custom moderation endpoint in commerce-config.js.";
+    return;
+  }
+
+  try {
+    const response = await fetch(config.commentEndpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData
+    });
+
+    if (!response.ok) throw new Error("Comment failed");
+
+    commentForm.reset();
+    status.textContent = "Thanks. Your comment was sent for review.";
+  } catch {
+    status.textContent = "Comment could not be sent. Please try again later.";
+  }
+});
+
+if (commentForm && !config.commentEndpoint) {
+  const status = commentForm.querySelector("[data-comment-status]");
+  status.textContent = "Comment collection is ready, but not connected yet. Add a moderated form endpoint in commerce-config.js before launch.";
+}
 
 renderSetupNotice();
 renderProducts();
