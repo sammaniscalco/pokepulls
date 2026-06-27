@@ -81,7 +81,7 @@ function renderProducts(filter = "all") {
             <p>${product.description}</p>
             <div class="tier-breakdown" aria-label="${product.name} tier breakdown">
               <div>
-                <span>Base</span>
+                <span>${product.baseLabel || "Base"}</span>
                 <strong>${product.baseCards}</strong>
               </div>
               <div>
