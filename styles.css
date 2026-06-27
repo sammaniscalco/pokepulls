@@ -459,6 +459,12 @@ p {
   line-height: 1.55;
 }
 
+.setup-notice.is-error {
+  border-color: #e85043;
+  background: #ffe8df;
+  color: #6d1f18;
+}
+
 .setup-notice code {
   font-weight: 850;
 }

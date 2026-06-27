@@ -9,17 +9,6 @@ function money(value) {
   return `$${value}`;
 }
 
-function isShopifyConfigured() {
-  const shopify = config.shopify || {};
-  const productIds = shopify.products || {};
-  return Boolean(
-    shopify.enabled &&
-      shopify.domain &&
-      shopify.storefrontAccessToken &&
-      products.every((product) => productIds[product.id])
-  );
-}
-
 function trackEvent(name, detail = {}) {
   const payload = { name, detail, ts: new Date().toISOString() };
 
@@ -41,52 +30,41 @@ function trackEvent(name, detail = {}) {
 function renderSetupNotice() {
   if (!setupNotice) return;
 
-  if (isShopifyConfigured()) {
-    setupNotice.hidden = true;
-    return;
-  }
-
   setupNotice.hidden = false;
   setupNotice.innerHTML = `
-    <strong>Checkout setup needed:</strong>
-    Add Shopify Buy Button values in <code>commerce-config.js</code> to show real checkout buttons.
-    Payment details are never collected on this site.
+    <strong>Secure checkout:</strong>
+    Purchases redirect to Stripe Checkout. Poke Pulls never collects or stores card data on this site.
+    If checkout is not configured yet, Stripe setup errors will appear here.
   `;
 }
 
-function checkoutUrl(product, quantity = 1) {
-  const shopify = config.shopify || {};
-  const shop = String(shopify.domain || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
-  const productId = shopify.products?.[product.id];
-
-  if (!isShopifyConfigured() || !shop || !productId) return "";
-
-  return `https://${shop}/cart/${productId}:${quantity}`;
+function setCheckoutMessage(message, isError = false) {
+  if (!setupNotice) return;
+  setupNotice.hidden = false;
+  setupNotice.classList.toggle("is-error", isError);
+  setupNotice.textContent = message;
 }
 
 function renderProducts(filter = "all") {
   if (!productGrid) return;
 
-  const checkoutReady = isShopifyConfigured();
   const visibleProducts = filter === "all" ? products : products.filter((product) => product.type === filter);
 
   productGrid.innerHTML = visibleProducts
     .map((product) => {
       const tokens = product.icons.map((icon) => `<span class="token">${icon}</span>`).join("");
-      const action = checkoutReady
-        ? `
-          <label class="quantity-control">
-            Qty
-            <select data-quantity-for="${product.id}">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </label>
-          <a class="add-button" href="${checkoutUrl(product)}" data-checkout-product="${product.id}">Checkout</a>
-        `
-        : `<span class="setup-chip">Checkout unavailable until Shopify is configured.</span>`;
+      const action = `
+        <label class="quantity-control">
+          Qty
+          <select data-quantity-for="${product.id}">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <button class="add-button" type="button" data-checkout-product="${product.id}">Checkout with Stripe</button>
+      `;
 
       return `
         <article class="product-card" id="${product.id}-scoop" style="--accent: ${product.accent}; --art-bg: ${product.bg}" data-product-card="${product.id}">
@@ -131,20 +109,48 @@ filters.forEach((button) => {
 productGrid?.addEventListener("click", (event) => {
   const checkout = event.target.closest("[data-checkout-product]");
   if (!checkout) return;
-  trackEvent("checkout_clicked", { productId: checkout.dataset.checkoutProduct });
+
+  const productId = checkout.dataset.checkoutProduct;
+  const product = products.find((item) => item.id === productId);
+  const card = checkout.closest("[data-product-card]");
+  const quantity = card?.querySelector("[data-quantity-for]")?.value || "1";
+
+  trackEvent("checkout_clicked", { productId, quantity });
+  startCheckout(checkout, product, quantity);
 });
 
-productGrid?.addEventListener("change", (event) => {
-  const quantity = event.target.closest("[data-quantity-for]");
-  if (!quantity) return;
+async function startCheckout(button, product, quantity) {
+  if (!product) {
+    setCheckoutMessage("Unable to find that product. Please refresh and try again.", true);
+    return;
+  }
 
-  const product = products.find((item) => item.id === quantity.dataset.quantityFor);
-  const card = quantity.closest("[data-product-card]");
-  const checkout = card?.querySelector("[data-checkout-product]");
-  if (!product || !checkout) return;
+  button.disabled = true;
+  button.textContent = "Opening Stripe...";
+  setCheckoutMessage("Creating a secure Stripe Checkout session...");
 
-  checkout.href = checkoutUrl(product, quantity.value);
-});
+  try {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({ productId: product.id, quantity: Number(quantity) })
+    });
+    const data = await response.json();
+
+    if (!response.ok || !data.url) {
+      throw new Error(data.error || "Checkout could not be started.");
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    setCheckoutMessage(error.message || "Checkout could not be started. Please try again.", true);
+    button.disabled = false;
+    button.textContent = "Checkout with Stripe";
+  }
+}
 
 document.querySelectorAll("details").forEach((detail) => {
   detail.addEventListener("toggle", () => {
@@ -163,7 +169,7 @@ signupForm?.addEventListener("submit", async (event) => {
   trackEvent("email_signup", { configured: Boolean(config.emailSignupEndpoint) });
 
   if (!config.emailSignupEndpoint) {
-    status.textContent = "Email signup is not connected yet. Add a Formspree, Resend, Mailchimp, or Shopify endpoint in commerce-config.js.";
+    status.textContent = "Email signup is not connected yet. Add a Formspree, Resend, Mailchimp, or Resend endpoint in commerce-config.js.";
     return;
   }
 

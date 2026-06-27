@@ -3,15 +3,5 @@ window.POKE_PULLS_CONFIG = {
   analyticsProvider: "",
   analyticsEndpoint: "",
   emailSignupEndpoint: "",
-  shopify: {
-    enabled: false,
-    domain: "",
-    storefrontAccessToken: "",
-    products: {
-      common: "",
-      rare: "",
-      premium: "",
-      party: ""
-    }
-  }
+  checkoutProvider: "stripe"
 };

@@ -5,7 +5,10 @@
   "description": "Poke Pulls mystery bead scoop storefront and simulator.",
   "scripts": {
     "dev": "python3 -m http.server 4173",
-    "check": "node --check commerce-config.js && node --check products.js && node --check script.js && node --check simulator.js",
+    "check": "node --check commerce-config.js && node --check products.js && node --check script.js && node --check simulator.js && node --check api/create-checkout-session.js",
     "build": "npm run check"
+  },
+  "dependencies": {
+    "stripe": "^18.0.0"
   }
 }

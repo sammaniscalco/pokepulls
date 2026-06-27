@@ -12,15 +12,17 @@ python3 -m http.server 4173
 
 Open `http://localhost:4173`.
 
-## Commerce Setup
+## Stripe Commerce Setup
 
-Checkout is intentionally disabled until a real provider is configured.
+Checkout uses Stripe Checkout through the Vercel serverless route at `api/create-checkout-session.js`.
 
-Edit `commerce-config.js` and set:
+Set these Vercel environment variables before accepting real orders:
 
-- `shopify.enabled` to `true`
-- `shopify.domain` to the Shopify store domain
-- `shopify.storefrontAccessToken` to the Storefront API token
-- `shopify.products` values to the Shopify variant IDs for each scoop
+- `STRIPE_SECRET_KEY`
+- `STRIPE_COMMON_PRICE_ID`
+- `STRIPE_RARE_PRICE_ID`
+- `STRIPE_PREMIUM_PRICE_ID`
+- `STRIPE_PARTY_PRICE_ID`
+- `SITE_URL` set to `https://pokepulls.vercel.app`
 
 Email signup is also disabled until `emailSignupEndpoint` is configured.
